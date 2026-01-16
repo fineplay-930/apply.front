@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { ChevronRight } from 'lucide-react';
 
 interface Step01Props {
@@ -18,13 +17,23 @@ export function Step01({ formData, onUpdate, onNext, onOpenPlayerMatching }: Ste
     onUpdate({ ...formData, [field]: value });
   };
 
-  const canProceed = formData.plan && formData.match_date && formData.kickoff_time && 
-                     formData.location && formData.home_team && formData.away_team &&
-                     formData.video_url_1;
+  const canProceed =
+    formData.plan &&
+    formData.match_date &&
+    formData.kickoff_time &&
+    formData.location &&
+    formData.home_team &&
+    formData.away_team &&
+    formData.video_url_1;
+
+  // 공통 인풋 클래스 (min-w-0가 핵심)
+  const inputBase =
+    'w-full min-w-0 bg-[#0a0a1a] border border-gray-700 rounded px-3 py-2.5 text-white placeholder-gray-600';
 
   return (
-    <div className="relative flex flex-col h-full">
-      <div className="flex-1 overflow-y-auto px-4 pb-24">
+    <div className="relative flex flex-col h-full overflow-x-hidden">
+      {/* 스크롤 영역: pb-24는 하단 버튼 높이만큼 확보 */}
+      <div className="flex-1 overflow-y-auto overflow-x-hidden px-4 pb-24">
         {/* Plans */}
         <div className="mt-6">
           <div className="text-[#FF8C00] text-sm mb-3">1-1. 플랜 선택</div>
@@ -57,18 +66,20 @@ export function Step01({ formData, onUpdate, onNext, onOpenPlayerMatching }: Ste
                 type="date"
                 value={formData.match_date || ''}
                 onChange={(e) => handleInputChange('match_date', e.target.value)}
-                className="w-full bg-[#0a0a1a] border border-gray-700 rounded px-3 py-2.5 text-white placeholder-gray-600 [color-scheme:dark]"
+                className={`${inputBase} appearance-none [color-scheme:dark]`}
               />
             </div>
+
             <div>
               <label className="text-gray-400 text-xs block mb-2">시간</label>
               <input
                 type="time"
                 value={formData.kickoff_time || ''}
                 onChange={(e) => handleInputChange('kickoff_time', e.target.value)}
-                className="w-full bg-[#0a0a1a] border border-gray-700 rounded px-3 py-2.5 text-white placeholder-gray-600 [color-scheme:dark]"
+                className={`${inputBase} appearance-none [color-scheme:dark]`}
               />
             </div>
+
             <div>
               <label className="text-gray-400 text-xs block mb-2">장소</label>
               <input
@@ -76,7 +87,7 @@ export function Step01({ formData, onUpdate, onNext, onOpenPlayerMatching }: Ste
                 placeholder="경기장 이름을 입력해주세요"
                 value={formData.location || ''}
                 onChange={(e) => handleInputChange('location', e.target.value)}
-                className="w-full bg-[#0a0a1a] border border-gray-700 rounded px-3 py-2.5 text-white placeholder-gray-600"
+                className={inputBase}
               />
             </div>
           </div>
@@ -93,9 +104,10 @@ export function Step01({ formData, onUpdate, onNext, onOpenPlayerMatching }: Ste
                 placeholder="홈팀 이름"
                 value={formData.home_team || ''}
                 onChange={(e) => handleInputChange('home_team', e.target.value)}
-                className="w-full bg-[#0a0a1a] border border-gray-700 rounded px-3 py-2.5 text-white placeholder-gray-600"
+                className={inputBase}
               />
             </div>
+
             <div>
               <label className="text-gray-400 text-xs block mb-2">대표자 성함</label>
               <input
@@ -103,9 +115,10 @@ export function Step01({ formData, onUpdate, onNext, onOpenPlayerMatching }: Ste
                 placeholder="대표자 성함을 입력해주세요"
                 value={formData.representative_name || ''}
                 onChange={(e) => handleInputChange('representative_name', e.target.value)}
-                className="w-full bg-[#0a0a1a] border border-gray-700 rounded px-3 py-2.5 text-white placeholder-gray-600"
+                className={inputBase}
               />
             </div>
+
             <div>
               <label className="text-gray-400 text-xs block mb-2">대표자 연락처</label>
               <input
@@ -113,9 +126,11 @@ export function Step01({ formData, onUpdate, onNext, onOpenPlayerMatching }: Ste
                 placeholder="연락처를 입력해주세요"
                 value={formData.representative_contact || ''}
                 onChange={(e) => handleInputChange('representative_contact', e.target.value)}
-                className="w-full bg-[#0a0a1a] border border-gray-700 rounded px-3 py-2.5 text-white placeholder-gray-600"
+                className={inputBase}
+                inputMode="tel"
               />
             </div>
+
             <div>
               <label className="text-gray-400 text-xs block mb-2">Away</label>
               <input
@@ -123,7 +138,7 @@ export function Step01({ formData, onUpdate, onNext, onOpenPlayerMatching }: Ste
                 placeholder="원정팀 이름"
                 value={formData.away_team || ''}
                 onChange={(e) => handleInputChange('away_team', e.target.value)}
-                className="w-full bg-[#0a0a1a] border border-gray-700 rounded px-3 py-2.5 text-white placeholder-gray-600"
+                className={inputBase}
               />
             </div>
           </div>
@@ -136,21 +151,24 @@ export function Step01({ formData, onUpdate, onNext, onOpenPlayerMatching }: Ste
             <div>
               <label className="text-gray-400 text-xs block mb-2">비디오 1</label>
               <input
-                type="text"
+                type="url"
+                inputMode="url"
                 placeholder="비디오 URL을 입력해주세요"
                 value={formData.video_url_1 || ''}
                 onChange={(e) => handleInputChange('video_url_1', e.target.value)}
-                className="w-full bg-[#0a0a1a] border border-gray-700 rounded px-3 py-2.5 text-white placeholder-gray-600"
+                className={inputBase}
               />
             </div>
+
             <div>
               <label className="text-gray-400 text-xs block mb-2">비디오 2</label>
               <input
-                type="text"
+                type="url"
+                inputMode="url"
                 placeholder="경기 영상 링크 입력(선택사항)"
                 value={formData.video_url_2 || ''}
                 onChange={(e) => handleInputChange('video_url_2', e.target.value)}
-                className="w-full bg-[#0a0a1a] border border-gray-700 rounded px-3 py-2.5 text-white placeholder-gray-600"
+                className={inputBase}
               />
             </div>
           </div>
@@ -161,14 +179,15 @@ export function Step01({ formData, onUpdate, onNext, onOpenPlayerMatching }: Ste
           <div className="text-[#FF8C00] text-sm mb-3">1-5. 선수 매칭</div>
           <button
             onClick={onOpenPlayerMatching}
-            className="w-full bg-[#0a0a1a] border border-gray-700 rounded px-4 py-3 flex items-center justify-between text-white"
+            className="w-full min-w-0 bg-[#0a0a1a] border border-gray-700 rounded px-4 py-3 flex items-center justify-between text-white"
           >
             <span className="text-sm">
-              {(formData.players && formData.players.length > 0) || (formData.substitutes && formData.substitutes.length > 0)
+              {(formData.players && formData.players.length > 0) ||
+              (formData.substitutes && formData.substitutes.length > 0)
                 ? `${(formData.players?.length || 0) + (formData.substitutes?.length || 0)}명 등록됨`
                 : '선수 매칭하기'}
             </span>
-            <ChevronRight className="w-5 h-5" />
+            <ChevronRight className="w-5 h-5 flex-shrink-0" />
           </button>
         </div>
 
@@ -192,9 +211,7 @@ export function Step01({ formData, onUpdate, onNext, onOpenPlayerMatching }: Ste
           onClick={onNext}
           disabled={!canProceed}
           className={`w-full py-3 rounded-lg ${
-            canProceed
-              ? 'bg-[#1a1a4a] text-white'
-              : 'bg-gray-800 text-gray-600 cursor-not-allowed'
+            canProceed ? 'bg-[#1a1a4a] text-white' : 'bg-gray-800 text-gray-600 cursor-not-allowed'
           }`}
         >
           다음
