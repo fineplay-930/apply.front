@@ -1,3 +1,21 @@
 @import './fonts.css';
 @import './tailwind.css';
 @import './theme.css';
+
+html, body, #root {
+  overflow-x: hidden;
+}
+
+/* iOS에서 가로 ‘튕김’ 줄이기 */
+body {
+  overscroll-behavior-x: none;
+  touch-action: pan-y;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+input, select, textarea {
+  color-scheme: dark;
+}
