@@ -204,4 +204,15 @@
     font-weight: var(--font-weight-normal);
     line-height: 1.5;
   }
+
+  html, body {
+  width: 100%;
+  overflow-x: hidden;
+  overscroll-behavior-x: none;
+  }
+
+  #root {
+  width: 100%;
+  overflow-x: hidden;
+  }
 }

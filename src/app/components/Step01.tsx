@@ -23,7 +23,7 @@ export function Step01({ formData, onUpdate, onNext, onOpenPlayerMatching }: Ste
                      formData.video_url_1;
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="relative flex flex-col h-full">
       <div className="flex-1 overflow-y-auto px-4 pb-24">
         {/* Plans */}
         <div className="mt-6">
@@ -187,7 +187,7 @@ export function Step01({ formData, onUpdate, onNext, onOpenPlayerMatching }: Ste
       </div>
 
       {/* Bottom Button */}
-      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[390px] p-4 bg-black border-t border-gray-800">
+      <div className="absolute bottom-0 left-0 right-0 p-4 bg-black border-t border-gray-800">
         <button
           onClick={onNext}
           disabled={!canProceed}

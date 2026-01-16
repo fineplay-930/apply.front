@@ -24,7 +24,7 @@ export function Step03({ onComplete }: Step03Props) {
       </div>
 
       {/* Bottom Button */}
-      <div className="fixed bottom-0 left-0 right-0 p-4 bg-black border-t border-gray-800 max-w-[390px] mx-auto">
+      <div className="absolute bottom-0 left-0 right-0 p-4 bg-black border-t border-gray-800 max-w-[390px] mx-auto">
         <button
           onClick={onComplete}
           className="w-full bg-[#1a1a4a] text-white py-3 rounded-lg"
