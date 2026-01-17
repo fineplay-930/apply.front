@@ -38,6 +38,7 @@ export default function App() {
   });
 
   const handleFormUpdate = (data: FormData) => {
+    console.log('handleFormUpdate', data);
     setFormData(data);
   };
 
@@ -147,7 +148,10 @@ const handleSubmit = async () => {
             <Step01
               formData={formData}
               onUpdate={handleFormUpdate}
-              onNext={() => setCurrentStep(2)}
+              onNext={() => {
+                console.log('Step01 onNext called', formData);
+                setCurrentStep(2);
+              }}
               onOpenPlayerMatching={() => setShowPlayerMatching(true)}
             />
           )}

@@ -106,7 +106,7 @@ const formationLayouts: Record<string, FormationPosition[]> = {
   ],
 };
 
-export function Step02({ formData, onBack, onNext }: Step02Props) {
+export function Step02({ formData, onBack, onNext, isSubmitting }: Step02Props) {
   const [isAgreed, setIsAgreed] = useState(false);
   const [showDisclaimerModal, setShowDisclaimerModal] = useState(false);
   const [isPaymentConfirmed, setIsPaymentConfirmed] = useState(false);
@@ -390,18 +390,20 @@ export function Step02({ formData, onBack, onNext }: Step02Props) {
                   className="mt-1 w-4 h-4 accent-[#FF8C00] cursor-pointer"
                 />
                 <div className="flex-1">
-                  <div className="text-white text-sm">
-                    [필수] 서비스 관련 안내 사항에 동의합니다.
+                  <div className="text-white text-sm">[필수] 서비스 관련 안내 사항에 동의합니다.</div>
+                  <div className="mt-2">
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        setShowDisclaimerModal(true);
+                      }}
+                      className="text-sm text-[#FF8C00]"
+                    >
+                      자세히 보기
+                    </button>
                   </div>
-                  <button
-                    onClick={onNext}
-                    disabled={!!isSubmitting}
-                    className={`w-full py-3 rounded-lg ${
-                        isSubmitting ? "bg-gray-800 text-gray-500" : "bg-[#1a1a4a] text-white"
-                    }`}
-                  >
-                    {isSubmitting ? "접수 중..." : "신청 확정"}
-                  </button>
                 </div>
               </label>
             </div>
