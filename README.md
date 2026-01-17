@@ -1,7 +1,7 @@
 
-  # Mobile App Prototype
+  # Fine Play Apply
 
-  This is a code bundle for Mobile App Prototype. The original project is available at https://www.figma.com/design/F4DEgHMRH4QDdvw9dAVEO9/Mobile-App-Prototype.
+  This is a code bundle for Fine Play Apply. The original project is available at https://www.figma.com/design/F4DEgHMRH4QDdvw9dAVEO9/Mobile-App-Prototype.
 
   ## Running the code
 
