@@ -12,6 +12,8 @@ interface FormData {
   location: string;
   home_team: string;
   away_team: string;
+  representative_name: string;
+  representative_contact: string;
   video_url_1: string;
   video_url_2: string;
   formation: string;
@@ -30,6 +32,8 @@ export default function App() {
     location: "",
     home_team: "",
     away_team: "",
+    representative_name: "",
+    representative_contact: "",
     video_url_1: "",
     video_url_2: "",
     formation: "4-3-3",
@@ -52,6 +56,8 @@ const handleSubmit = async () => {
     location: formData.location,
     home_team: formData.home_team,
     away_team: formData.away_team,
+    representative_name: formData.representative_name,
+    representative_contact: formData.representative_contact,
     video_url_1: formData.video_url_1,
     video_url_2: formData.video_url_2,
     formation: formData.formation,
@@ -91,6 +97,8 @@ const handleSubmit = async () => {
       location: "",
       home_team: "",
       away_team: "",
+      representative_name: "",
+      representative_contact: "",
       video_url_1: "",
       video_url_2: "",
       formation: "4-3-3",
