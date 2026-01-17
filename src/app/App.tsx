@@ -21,6 +21,7 @@ interface FormData {
 
 export default function App() {
   const [currentStep, setCurrentStep] = useState(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPlayerMatching, setShowPlayerMatching] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     plan: "",
@@ -40,42 +41,46 @@ export default function App() {
     setFormData(data);
   };
 
-  const handleSubmit = async () => {
-    const payload = {
-      plan: formData.plan,
-      match_date: formData.match_date,
-      kickoff_time: formData.kickoff_time,
-      location: formData.location,
-      home_team: formData.home_team,
-      away_team: formData.away_team,
-      video_url_1: formData.video_url_1,
-      video_url_2: formData.video_url_2,
-      formation: formData.formation,
-      players: formData.players,
-      substitutes: formData.substitutes,
-    };
+const handleSubmit = async () => {
+  if (isSubmitting) return;
 
-    try {
-      console.log("Submitting application:", payload);
-
-      const base = import.meta.env.VITE_API_BASE_URL || "";
-      const res = await fetch(`${base}/submit-application`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      if (!res.ok) {
-        const msg = await res.text();
-        throw new Error(msg || "Submit failed");
-      }
-
-      setCurrentStep(3);
-    } catch (error) {
-      console.error("Submission error:", error);
-      alert("접수에 실패했습니다. 잠시 후 다시 시도해주세요.");
-    }
+  const payload = {
+    plan: formData.plan,
+    match_date: formData.match_date,
+    kickoff_time: formData.kickoff_time,
+    location: formData.location,
+    home_team: formData.home_team,
+    away_team: formData.away_team,
+    video_url_1: formData.video_url_1,
+    video_url_2: formData.video_url_2,
+    formation: formData.formation,
+    players: formData.players,
+    substitutes: formData.substitutes,
   };
+
+  try {
+    setIsSubmitting(true);
+
+    const base = import.meta.env.VITE_API_BASE_URL || '';
+    const res = await fetch(`${base}/submit-application`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    if (!res.ok) {
+      const msg = await res.text();
+      throw new Error(msg || 'Submit failed');
+    }
+
+    setCurrentStep(3);
+  } catch (e) {
+    console.error(e);
+    alert('접수에 실패했습니다. 잠시 후 다시 시도해주세요.');
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   const handleComplete = () => {
     setFormData({
@@ -148,7 +153,7 @@ export default function App() {
           )}
 
           {currentStep === 2 && (
-            <Step02 formData={formData} onBack={() => setCurrentStep(1)} onNext={handleSubmit} />
+            <Step02 formData={formData} onBack={() => setCurrentStep(1)} onNext={handleSubmit} isSubmitting={isSubmitting} />
           )}
 
           {currentStep === 3 && <Step03 onComplete={handleComplete} />}
@@ -161,6 +166,15 @@ export default function App() {
             onUpdate={handleFormUpdate}
             onClose={() => setShowPlayerMatching(false)}
           />
+        )}
+      {/* ✅ Loading Overlay: 프레임 내부에 둬야 함 */}
+        {isSubmitting && (
+          <div className="absolute inset-0 bg-black/60 flex items-center justify-center z-50">
+            <div className="bg-[#0a0a1a] border border-gray-700 rounded-lg px-5 py-4 flex items-center gap-3">
+              <div className="w-5 h-5 rounded-full border-2 border-gray-500 border-t-transparent animate-spin" />
+              <div className="text-sm text-white">접수 중입니다. 잠시만 기다려주세요…</div>
+            </div>
+          </div>
         )}
       </div>
     </div>

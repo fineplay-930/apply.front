@@ -5,6 +5,7 @@ interface Step02Props {
   formData: any;
   onBack: () => void;
   onNext: () => void;
+  isSubmitting?: boolean;
 }
 
 interface FormationPosition {
@@ -393,13 +394,13 @@ export function Step02({ formData, onBack, onNext }: Step02Props) {
                     [필수] 서비스 관련 안내 사항에 동의합니다.
                   </div>
                   <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setShowDisclaimerModal(true);
-                    }}
-                    className="text-[#FF8C00] text-xs mt-1 underline"
+                    onClick={onNext}
+                    disabled={!!isSubmitting}
+                    className={`w-full py-3 rounded-lg ${
+                        isSubmitting ? "bg-gray-800 text-gray-500" : "bg-[#1a1a4a] text-white"
+                    }`}
                   >
-                    자세히 보기
+                    {isSubmitting ? "접수 중..." : "신청 확정"}
                   </button>
                 </div>
               </label>
