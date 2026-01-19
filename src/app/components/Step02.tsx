@@ -461,7 +461,7 @@ export function Step02({ formData, onBack, onNext, isSubmitting }: Step02Props) 
       )}
 
       {/* Bottom Buttons */}
-      <div className="absolute bottom-0 left-0 right-0 p-4 bg-black border-t border-gray-800 max-w-[390px] mx-auto">
+      <div className="fp-bottom p-4 bg-black border-t border-gray-800 max-w-[390px] mx-auto">
         <div className="grid grid-cols-2 gap-3">
           <button
             onClick={onBack}

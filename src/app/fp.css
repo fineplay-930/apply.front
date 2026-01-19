@@ -17,3 +17,19 @@
     min-height: 0;
   }
 }
+
+/* Bottom bar: sticky on small viewports, absolute (inside fixed frame) on large viewports */
+.fp-bottom {
+  position: sticky;
+  bottom: 0;
+  z-index: 40;
+}
+
+@media (min-width: 501px) {
+  .fp-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+}
