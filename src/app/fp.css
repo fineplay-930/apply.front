@@ -18,6 +18,22 @@
   }
 }
 
+/* Respect safe-area insets for mobile browser chrome (notch / bottom bar) */
+.fp-frame {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Ensure overlays/modals inside frame don't extend under browser UI */
+.fp-frame > * {
+  box-sizing: border-box;
+}
+
+/* Adjust bottom bar to include safe area on mobile */
+.fp-bottom {
+  padding-bottom: calc(env(safe-area-inset-bottom) + 1rem);
+}
+
 /* Bottom bar: sticky on small viewports, absolute (inside fixed frame) on large viewports */
 .fp-bottom {
   position: sticky;
