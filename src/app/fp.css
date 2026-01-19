@@ -40,20 +40,9 @@
   padding-bottom: calc(env(safe-area-inset-bottom) + 14px);
 }
 
+
 .ios-chrome .fp-bottom {
   padding-bottom: calc(env(safe-area-inset-bottom) + 22px);
-}
-
-/* Stronger fix for iOS Chrome: pin bottom control above browser chrome */
-.ios-chrome .fp-bottom {
-  position: fixed;
-  bottom: calc(env(safe-area-inset-bottom) + 12px);
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(360px, 92%);
-  z-index: 9999;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.5);
-  border-radius: 9999px;
 }
 
 /* Slightly larger primary button for better tap target */
@@ -72,7 +61,7 @@
   width: 100%;
   max-width: 390px;
   z-index: 9999;
-  background: transparent;
+  background: #0a0a1a; /* solid background so header doesn't blend with content */
 }
 
 /* Ensure scrollable area doesn't hide behind fixed header */
@@ -85,6 +74,7 @@
   position: sticky;
   bottom: 0;
   z-index: 40;
+  padding-bottom: calc(env(safe-area-inset-bottom) + 2rem); /* larger vertical spacing for tappable area */
 }
 
 @media (min-width: 501px) {
