@@ -211,7 +211,7 @@ export function PlayerMatching({ formData, onUpdate, onClose }: PlayerMatchingPr
 
   return (
     <div className="fixed inset-0 bg-white z-50 flex items-center justify-center">
-      <div className="w-full h-full max-w-[390px] max-h-[844px] bg-black flex flex-col shadow-2xl">
+      <div className="fp-frame bg-black flex flex-col shadow-2xl">
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-800">
           <button onClick={onClose} className="text-white">
@@ -484,7 +484,7 @@ export function PlayerMatching({ formData, onUpdate, onClose }: PlayerMatchingPr
         </div>
 
         {/* Bottom Button */}
-        <div className="fixed bottom-0 left-0 right-0 p-4 bg-black border-t border-gray-800 max-w-[390px] mx-auto">
+        <div className="fp-bottom p-4 bg-black border-t border-gray-800 max-w-[390px] mx-auto">
           <button
             onClick={handleSave}
             className="w-full bg-[#1a1a4a] text-white py-3 rounded-lg"
