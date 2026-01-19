@@ -44,6 +44,42 @@
   padding-bottom: calc(env(safe-area-inset-bottom) + 22px);
 }
 
+/* Stronger fix for iOS Chrome: pin bottom control above browser chrome */
+.ios-chrome .fp-bottom {
+  position: fixed;
+  bottom: calc(env(safe-area-inset-bottom) + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(360px, 92%);
+  z-index: 9999;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+  border-radius: 9999px;
+}
+
+/* Slightly larger primary button for better tap target */
+.fp-bottom .primary-btn {
+  padding-top: 14px;
+  padding-bottom: 14px;
+  font-size: 15px;
+}
+
+/* Fix header to remain visible and tappable on iOS Chrome */
+.ios-chrome .fp-header {
+  position: fixed;
+  top: calc(env(safe-area-inset-top) + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 390px;
+  z-index: 9999;
+  background: transparent;
+}
+
+/* Ensure scrollable area doesn't hide behind fixed header */
+.ios-chrome .fp-frame .content-scroll {
+  padding-top: 56px; /* header height approximation */
+}
+
 /* Bottom bar: sticky on small viewports, absolute (inside fixed frame) on large viewports */
 .fp-bottom {
   position: sticky;
