@@ -263,8 +263,8 @@ export function PlayerMatching({ formData, onUpdate, onClose }: PlayerMatchingPr
   return (
     <div className="fixed inset-0 bg-white z-50 flex items-center justify-center">
       <div className="fp-frame bg-black flex flex-col shadow-2xl w-full h-full max-w-[390px] max-h-[844px] overflow-hidden">
-        {/* Header */}
-        <div ref={headerRef} className="flex items-center justify-between p-4 border-b border-gray-800">
+        {/* Header (match main page header spacing) */}
+        <div ref={headerRef} className="flex items-center justify-between px-4 py-3 border-b border-gray-800">
           <button onClick={onClose} className="text-white">
             <ChevronLeft className="w-6 h-6" />
           </button>
@@ -535,7 +535,7 @@ export function PlayerMatching({ formData, onUpdate, onClose }: PlayerMatchingPr
         </div>
 
         {/* Bottom Button */}
-        <div ref={bottomRef} className="fp-bottom p-4 bg-black border-t border-gray-800 w-full">
+        <div ref={bottomRef} className="fp-bottom p-4 bg-black border-t border-gray-800 max-w-[390px] mx-auto">
           <button
             onClick={handleSave}
             className="w-full bg-[#1a1a4a] text-white py-4 rounded-lg text-sm"
