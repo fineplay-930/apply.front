@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { ChevronLeft, Plus, Search, Trash2, X } from 'lucide-react';
 
 interface Player {
@@ -209,11 +209,62 @@ export function PlayerMatching({ formData, onUpdate, onClose }: PlayerMatchingPr
 
   const currentLayout = formationLayouts[formation];
 
+  // refs for scroll and controls to ensure visibility on mobile browsers
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+  const headerRef = useRef<HTMLDivElement | null>(null);
+  const bottomRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const sc = scrollRef.current;
+    const hdr = headerRef.current;
+    const bot = bottomRef.current;
+    if (!sc) return;
+
+    const extraOffset = document.documentElement.classList.contains('ios-chrome') ? 24 : 8;
+
+    const ensureVisible = (el: HTMLElement | null) => {
+      if (!el || !sc) return;
+      const scRect = sc.getBoundingClientRect();
+      const elRect = el.getBoundingClientRect();
+
+      // if element top is above visible area, scroll up
+      if (elRect.top < scRect.top + extraOffset) {
+        const delta = elRect.top - (scRect.top + extraOffset);
+        sc.scrollBy({ top: delta, behavior: 'smooth' });
+        return;
+      }
+
+      // if element bottom is below visible area, scroll down
+      if (elRect.bottom > scRect.bottom - extraOffset) {
+        const delta = elRect.bottom - (scRect.bottom - extraOffset);
+        sc.scrollBy({ top: delta, behavior: 'smooth' });
+      }
+    };
+
+    // try to ensure header and bottom are visible after layout
+    const t1 = window.setTimeout(() => ensureVisible(hdr), 120);
+    const t2 = window.setTimeout(() => ensureVisible(bot), 240);
+
+    const onResize = () => {
+      ensureVisible(hdr);
+      ensureVisible(bot);
+    };
+    window.addEventListener('resize', onResize);
+    window.addEventListener('orientationchange', onResize);
+
+    return () => {
+      window.clearTimeout(t1);
+      window.clearTimeout(t2);
+      window.removeEventListener('resize', onResize);
+      window.removeEventListener('orientationchange', onResize);
+    };
+  }, []);
+
   return (
     <div className="fixed inset-0 bg-white z-50 flex items-center justify-center">
       <div className="fp-frame bg-black flex flex-col shadow-2xl w-full h-full max-w-[390px] max-h-[844px] overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-800">
+        <div ref={headerRef} className="flex items-center justify-between p-4 border-b border-gray-800">
           <button onClick={onClose} className="text-white">
             <ChevronLeft className="w-6 h-6" />
           </button>
@@ -221,7 +272,7 @@ export function PlayerMatching({ formData, onUpdate, onClose }: PlayerMatchingPr
           <div className="w-6" />
         </div>
 
-        <div className="flex-1 overflow-y-auto pb-24">
+        <div ref={scrollRef} className="flex-1 overflow-y-auto pb-24">
           {/* Formation Selector */}
           <div className="p-4">
             <div className="text-gray-400 text-sm mb-3">포메이션 선택</div>
@@ -484,7 +535,7 @@ export function PlayerMatching({ formData, onUpdate, onClose }: PlayerMatchingPr
         </div>
 
         {/* Bottom Button */}
-        <div className="fp-bottom p-4 bg-black border-t border-gray-800 w-full">
+        <div ref={bottomRef} className="fp-bottom p-4 bg-black border-t border-gray-800 w-full">
           <button
             onClick={handleSave}
             className="w-full bg-[#1a1a4a] text-white py-4 rounded-lg text-sm"
