@@ -1,0 +1,19 @@
+/* Fine Play Apply - responsive frame behavior
+   - up to 500px viewport width: frame is responsive (width: 100%, height auto, max-width 500px)
+   - 501px and above: frame is fixed to 390x844 (to emulate mobile device) and centered by parent
+*/
+
+.fp-frame {
+  width: 100%;
+  height: auto;
+  min-height: 100vh;
+  max-width: 500px;
+}
+
+@media (min-width: 501px) {
+  .fp-frame {
+    width: 390px;
+    height: 844px;
+    min-height: 0;
+  }
+}

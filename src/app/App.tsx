@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./fp.css";
 import { ChevronLeft } from "lucide-react";
 import { Step01 } from "@/app/components/Step01";
 import { Step02 } from "@/app/components/Step02";
@@ -116,7 +117,7 @@ const handleSubmit = async () => {
 
   return (
     <div className="dark min-h-screen bg-white flex items-center justify-center">
-      <div className="w-full h-screen max-w-[390px] max-h-[844px] bg-black text-white flex flex-col relative shadow-2xl">
+      <div className="fp-frame bg-black text-white flex flex-col relative shadow-2xl">
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-3 border-b border-gray-800">
           <button className="text-white">
