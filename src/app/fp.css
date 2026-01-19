@@ -34,6 +34,16 @@
   padding-bottom: calc(env(safe-area-inset-bottom) + 1rem);
 }
 
+/* iOS Chrome has additional browser chrome that can overlay content; add extra offset */
+.ios-chrome .fp-frame {
+  padding-top: calc(env(safe-area-inset-top) + 14px);
+  padding-bottom: calc(env(safe-area-inset-bottom) + 14px);
+}
+
+.ios-chrome .fp-bottom {
+  padding-bottom: calc(env(safe-area-inset-bottom) + 22px);
+}
+
 /* Bottom bar: sticky on small viewports, absolute (inside fixed frame) on large viewports */
 .fp-bottom {
   position: sticky;
