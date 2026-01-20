@@ -52,21 +52,15 @@
   font-size: 15px;
 }
 
-/* Fix header to remain visible and tappable on iOS Chrome */
+/* For modal/frame flows keep header in normal flow (avoid fixed header overriding layout) */
 .ios-chrome .fp-header {
-  position: fixed;
-  top: calc(env(safe-area-inset-top) + 6px);
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 390px;
-  z-index: 9999;
-  background: #0a0a1a; /* solid background so header doesn't blend with content */
+  position: static;
+  background: #0a0a1a;
 }
 
-/* Ensure scrollable area doesn't hide behind fixed header */
+/* Default content-scroll padding reset when header is not fixed */
 .ios-chrome .fp-frame .content-scroll {
-  padding-top: 56px; /* header height approximation */
+  padding-top: 0;
 }
 
 /* Bottom bar: sticky on small viewports, absolute (inside fixed frame) on large viewports */
@@ -96,4 +90,10 @@
 /* Keep header visually solid to avoid blending with content */
 .fp-header {
   background: #0a0a1a;
+}
+
+/* Inflow bottom: used by modal views that keep header/body/footer in same scroll flow */
+.inflow-bottom {
+  position: static;
+  padding-bottom: calc(env(safe-area-inset-bottom) + 1rem);
 }

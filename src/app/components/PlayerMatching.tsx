@@ -263,16 +263,15 @@ export function PlayerMatching({ formData, onUpdate, onClose }: PlayerMatchingPr
   return (
     <div className="fixed inset-0 bg-white z-50 flex items-center justify-center">
       <div className="fp-frame bg-black flex flex-col shadow-2xl w-full h-full max-w-[390px] max-h-[844px] overflow-hidden">
-        {/* Header (match main page header spacing) */}
-        <div ref={headerRef} className="fp-header flex items-center justify-between px-4 py-3 border-b border-gray-800">
-          <button onClick={onClose} className="text-white">
-            <ChevronLeft className="w-6 h-6" />
-          </button>
-          <h2 className="text-white">선수 매칭</h2>
-          <div className="w-6" />
-        </div>
-
-        <div ref={scrollRef} className="content-scroll flex-1 overflow-y-auto pb-24">
+        <div ref={scrollRef} className="content-scroll flex-1 overflow-y-auto pb-32">
+          {/* Header (moved into scrollable body to match Step views) */}
+          <div ref={headerRef} className="fp-header flex items-center justify-between px-4 py-3 border-b border-gray-800">
+            <button onClick={onClose} className="text-white">
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+            <h2 className="text-white">선수 매칭</h2>
+            <div className="w-6" />
+          </div>
           {/* Formation Selector */}
           <div className="p-4">
             <div className="text-gray-400 text-sm mb-3">포메이션 선택</div>
@@ -449,7 +448,7 @@ export function PlayerMatching({ formData, onUpdate, onClose }: PlayerMatchingPr
           )}
 
           {/* Substitutes Section */}
-          <div className="px-4 mb-6 sticky top-16 z-40 bg-black/0">
+          <div className="px-4 mb-6">
             <div className="text-gray-400 text-sm mb-3">교체 선수</div>
             <div className="grid grid-cols-7 gap-2">
               {substitutes.map((sub, index) => (
@@ -534,14 +533,15 @@ export function PlayerMatching({ formData, onUpdate, onClose }: PlayerMatchingPr
           </div>
         </div>
 
-        {/* Bottom Button */}
-        <div ref={bottomRef} className="fp-bottom p-4 bg-black border-t border-gray-800">
-          <button
-            onClick={handleSave}
-            className="primary-btn w-full bg-[#1a1a4a] text-white rounded-lg text-sm block"
-          >
-            완료
-          </button>
+          {/* Bottom Button moved into scrollable body so it scrolls with content like Step views */}
+          <div ref={bottomRef} className="inflow-bottom p-4 bg-black border-t border-gray-800">
+            <button
+              onClick={handleSave}
+              className="primary-btn w-full bg-[#1a1a4a] text-white rounded-lg text-sm"
+            >
+              완료
+            </button>
+          </div>
         </div>
       </div>
     </div>
