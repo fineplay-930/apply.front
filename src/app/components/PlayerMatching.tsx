@@ -48,7 +48,7 @@ const formationLayouts: Record<string, FormationPosition[]> = {
     // Midfield (4)
     { row: 1, col: 0.5, label: 'LM' },
     { row: 1, col: 1.5, label: 'CM' },
-    { row: 1, col: 2.5, label: 'CM' },
+        }
     { row: 1, col: 3.5, label: 'RM' },
     // Forward (2)
     { row: 0, col: 1, label: 'ST' },
