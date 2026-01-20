@@ -375,9 +375,11 @@ export function PlayerMatching({ formData, onUpdate, onClose }: PlayerMatchingPr
                 </div>
 
                 <div className="space-y-3">
-                  </div>
+                  <div>
+                    <label className="text-gray-400 text-xs block mb-2">포지션</label>
+                    <input
+                      type="text"
                       value={newPlayer.position}
-                  {/* Bottom Button moved into scrollable body so it scrolls with content like Step views */}
                       readOnly
                       className="w-full bg-[#0a0a1a] border border-gray-700 rounded px-3 py-2 text-gray-400 text-sm"
                     />
