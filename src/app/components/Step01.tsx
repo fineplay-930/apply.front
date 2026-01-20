@@ -206,7 +206,7 @@ export function Step01({ formData, onUpdate, onNext, onOpenPlayerMatching }: Ste
       </div>
 
       {/* Bottom Button */}
-      <div className="fp-bottom p-4 bg-black border-t border-gray-800">
+      <div className="absolute bottom-0 left-0 right-0 p-4 bg-black border-t border-gray-800">
         <button
           onClick={onNext}
           disabled={!canProceed}

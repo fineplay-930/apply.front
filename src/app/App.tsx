@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./fp.css";
 import { ChevronLeft } from "lucide-react";
 import { Step01 } from "@/app/components/Step01";
@@ -46,19 +46,6 @@ export default function App() {
     console.log('handleFormUpdate', data);
     setFormData(data);
   };
-
-  useEffect(() => {
-    try {
-      const ua = navigator.userAgent || '';
-      const isiOS = /iP(ad|hone|od)/.test(ua);
-      const isCriOS = /CriOS/.test(ua);
-      if (isiOS && isCriOS) {
-        document.documentElement.classList.add('ios-chrome');
-      }
-    } catch (e) {
-      // ignore server-side or restricted env
-    }
-  }, []);
 
 const handleSubmit = async () => {
   if (isSubmitting) return;

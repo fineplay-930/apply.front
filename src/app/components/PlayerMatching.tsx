@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { ChevronLeft, Plus, Search, Trash2, X } from 'lucide-react';
 
 interface Player {
@@ -209,69 +209,19 @@ export function PlayerMatching({ formData, onUpdate, onClose }: PlayerMatchingPr
 
   const currentLayout = formationLayouts[formation];
 
-  // refs for scroll and controls to ensure visibility on mobile browsers
-  const scrollRef = useRef<HTMLDivElement | null>(null);
-  const headerRef = useRef<HTMLDivElement | null>(null);
-  const bottomRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const sc = scrollRef.current;
-    const hdr = headerRef.current;
-    const bot = bottomRef.current;
-    if (!sc) return;
-
-    const extraOffset = document.documentElement.classList.contains('ios-chrome') ? 24 : 8;
-
-    const ensureVisible = (el: HTMLElement | null) => {
-      if (!el || !sc) return;
-      const scRect = sc.getBoundingClientRect();
-      const elRect = el.getBoundingClientRect();
-
-      // if element top is above visible area, scroll up
-      if (elRect.top < scRect.top + extraOffset) {
-        const delta = elRect.top - (scRect.top + extraOffset);
-        sc.scrollBy({ top: delta, behavior: 'smooth' });
-        return;
-      }
-
-      // if element bottom is below visible area, scroll down
-      if (elRect.bottom > scRect.bottom - extraOffset) {
-        const delta = elRect.bottom - (scRect.bottom - extraOffset);
-        sc.scrollBy({ top: delta, behavior: 'smooth' });
-      }
-    };
-
-    // try to ensure header and bottom are visible after layout
-    const t1 = window.setTimeout(() => ensureVisible(hdr), 120);
-    const t2 = window.setTimeout(() => ensureVisible(bot), 240);
-
-    const onResize = () => {
-      ensureVisible(hdr);
-      ensureVisible(bot);
-    };
-    window.addEventListener('resize', onResize);
-    window.addEventListener('orientationchange', onResize);
-
-    return () => {
-      window.clearTimeout(t1);
-      window.clearTimeout(t2);
-      window.removeEventListener('resize', onResize);
-      window.removeEventListener('orientationchange', onResize);
-    };
-  }, []);
-
   return (
     <div className="fixed inset-0 bg-white z-50 flex items-center justify-center">
-      <div className="fp-frame bg-black flex flex-col shadow-2xl w-full h-full max-w-[390px] max-h-[844px] overflow-hidden">
-        <div ref={scrollRef} className="content-scroll flex-1 overflow-y-auto pb-32">
-          {/* Header (moved into scrollable body to match Step views) */}
-          <div ref={headerRef} className="fp-header flex items-center justify-between px-4 py-3 border-b border-gray-800">
-            <button onClick={onClose} className="text-white">
-              <ChevronLeft className="w-6 h-6" />
-            </button>
-            <h2 className="text-white">선수 매칭</h2>
-            <div className="w-6" />
-          </div>
+      <div className="w-full h-full max-w-[390px] max-h-[844px] bg-black flex flex-col shadow-2xl">
+        {/* Header */}
+        <div className="flex items-center justify-between p-4 border-b border-gray-800">
+          <button onClick={onClose} className="text-white">
+            <ChevronLeft className="w-6 h-6" />
+          </button>
+          <h2 className="text-white">선수 매칭</h2>
+          <div className="w-6" />
+        </div>
+
+        <div className="flex-1 overflow-y-auto pb-24">
           {/* Formation Selector */}
           <div className="p-4">
             <div className="text-gray-400 text-sm mb-3">포메이션 선택</div>
@@ -533,15 +483,14 @@ export function PlayerMatching({ formData, onUpdate, onClose }: PlayerMatchingPr
           </div>
         </div>
 
-          {/* Bottom Button moved into scrollable body so it scrolls with content like Step views */}
-          <div ref={bottomRef} className="inflow-bottom p-4 bg-black border-t border-gray-800">
-            <button
-              onClick={handleSave}
-              className="primary-btn w-full bg-[#1a1a4a] text-white rounded-lg text-sm"
-            >
-              완료
-            </button>
-          </div>
+        {/* Bottom Button */}
+        <div className="fixed bottom-0 left-0 right-0 p-4 bg-black border-t border-gray-800 max-w-[390px] mx-auto">
+          <button
+            onClick={handleSave}
+            className="w-full bg-[#1a1a4a] text-white py-3 rounded-lg"
+          >
+            완료
+          </button>
         </div>
       </div>
     </div>
