@@ -449,7 +449,7 @@ export function PlayerMatching({ formData, onUpdate, onClose }: PlayerMatchingPr
           )}
 
           {/* Substitutes Section */}
-          <div className="px-4 mb-6">
+          <div className="px-4 mb-6 sticky top-16 z-40 bg-black/0">
             <div className="text-gray-400 text-sm mb-3">교체 선수</div>
             <div className="grid grid-cols-7 gap-2">
               {substitutes.map((sub, index) => (
@@ -535,10 +535,10 @@ export function PlayerMatching({ formData, onUpdate, onClose }: PlayerMatchingPr
         </div>
 
         {/* Bottom Button */}
-        <div ref={bottomRef} className="fp-bottom p-4 bg-black border-t border-gray-800 max-w-[390px] mx-auto">
+        <div ref={bottomRef} className="fp-bottom p-4 bg-black border-t border-gray-800">
           <button
             onClick={handleSave}
-            className="primary-btn w-full bg-[#1a1a4a] text-white rounded-lg text-sm"
+            className="primary-btn w-full bg-[#1a1a4a] text-white rounded-lg text-sm block"
           >
             완료
           </button>

@@ -73,7 +73,7 @@
 .fp-bottom {
   position: sticky;
   bottom: 0;
-  z-index: 40;
+  z-index: 9999;
   padding-bottom: calc(env(safe-area-inset-bottom) + 2rem); /* larger vertical spacing for tappable area */
 }
 
@@ -85,4 +85,15 @@
     transform: translateX(-50%);
     width: 390px;
   }
+}
+
+/* Ensure primary button inside bottom bar always fills available width */
+.fp-bottom .primary-btn {
+  display: block;
+  width: 100%;
+}
+
+/* Keep header visually solid to avoid blending with content */
+.fp-header {
+  background: #0a0a1a;
 }
