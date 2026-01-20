@@ -210,10 +210,17 @@ export function PlayerMatching({ formData, onUpdate, onClose }: PlayerMatchingPr
   const currentLayout = formationLayouts[formation];
 
   return (
-    <div className="fixed inset-0 bg-white z-50 flex items-center justify-center">
-      <div className="w-full h-full max-w-[390px] max-h-[844px] bg-black flex flex-col shadow-2xl">
-        {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-800">
+    <div className="fixed inset-0 bg-white z-50">
+      <div
+        className="w-full max-w-[390px] bg-black flex flex-col shadow-2xl mx-auto"
+        style={{ height: '100dvh' }}
+      >
+        {/* Header: sticky and safe-area aware on iOS */}
+        <div
+          className="sticky top-0 z-40 flex items-center justify-between px-4 py-3 border-b border-gray-800"
+          ref={headerRef}
+          style={{ paddingTop: 'env(safe-area-inset-top)', background: '#0a0a1a' }}
+        >
           <button onClick={onClose} className="text-white">
             <ChevronLeft className="w-6 h-6" />
           </button>
@@ -221,7 +228,7 @@ export function PlayerMatching({ formData, onUpdate, onClose }: PlayerMatchingPr
           <div className="w-6" />
         </div>
 
-        <div className="flex-1 overflow-y-auto pb-24">
+        <div className="flex-1 overflow-y-auto">
           {/* Formation Selector */}
           <div className="p-4">
             <div className="text-gray-400 text-sm mb-3">포메이션 선택</div>
@@ -483,8 +490,12 @@ export function PlayerMatching({ formData, onUpdate, onClose }: PlayerMatchingPr
           </div>
         </div>
 
-        {/* Bottom Button */}
-        <div className="fixed bottom-0 left-0 right-0 p-4 bg-black border-t border-gray-800 max-w-[390px] mx-auto">
+        {/* Footer: in-flow, respects safe-area bottom */}
+        <div
+          ref={bottomRef}
+          className="p-4 bg-black border-t border-gray-800"
+          style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) + 1rem)' }}
+        >
           <button
             onClick={handleSave}
             className="w-full bg-[#1a1a4a] text-white py-3 rounded-lg"
