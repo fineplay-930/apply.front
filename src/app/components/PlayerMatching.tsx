@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { ChevronLeft, Plus, Search, Trash2, X } from 'lucide-react';
 
 interface Player {
@@ -208,6 +208,9 @@ export function PlayerMatching({ formData, onUpdate, onClose }: PlayerMatchingPr
   );
 
   const currentLayout = formationLayouts[formation];
+
+  const headerRef = useRef<HTMLDivElement | null>(null);
+  const bottomRef = useRef<HTMLDivElement | null>(null);
 
   return (
     <div className="fixed inset-0 bg-white z-50">
